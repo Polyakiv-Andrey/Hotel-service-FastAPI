@@ -21,3 +21,7 @@ class DetailHotel(BaseHotel):
 
 class CreateHotel(BaseHotel):
     pass
+
+
+class UpdateHotel(BaseHotel):
+    pass

@@ -20,7 +20,7 @@ class HotelService:
         hotels = query.all()
         return hotels
 
-    def get(self, hotel_id: tables.Hotel.id) -> Hotel:
+    def _get(self, hotel_id: tables.Hotel.id) -> Hotel:
         hotel = self.session.query(
             tables.Hotel
         ).filter_by(id=hotel_id).first()
@@ -28,10 +28,23 @@ class HotelService:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
         return hotel
 
+    def get(self, hotel_id: tables.Hotel.id) -> Hotel:
+        return self._get(hotel_id)
+
     def create(self, hotel_data: CreateHotel) -> tables.Hotel:
         hotel = tables.Hotel(**hotel_data.dict())
         self.session.add(hotel)
         self.session.commit()
         return hotel
+
+    def update(self, hotel_id: tables.Hotel.id, hotel_data):
+        hotel = self._get(hotel_id)
+        for field, value in hotel_data:
+            setattr(hotel, field, value)
+        self.session.commit()
+        return hotel
+
+    def delete(self):
+        pass
 
 

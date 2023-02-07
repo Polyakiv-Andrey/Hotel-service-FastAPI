@@ -3,7 +3,7 @@ from typing import List, Optional
 from fastapi import APIRouter
 from fastapi import Depends
 
-from ..models.hotels import ListHotel, CreateHotel, DetailHotel
+from ..models.hotels import ListHotel, CreateHotel, DetailHotel, UpdateHotel
 from ..services.hotels import HotelService
 
 router = APIRouter(
@@ -33,3 +33,12 @@ def add_new_hotel(
     service: HotelService = Depends(),
 ):
     return service.create(hotel_data)
+
+
+@router.put("/{hotel_id}", response_model=UpdateHotel)
+def update_hotel_info(
+        hotel_id: int,
+        hotel_data: UpdateHotel,
+        service: HotelService = Depends(),
+):
+    return service.update(hotel_id=hotel_id, hotel_data=hotel_data)

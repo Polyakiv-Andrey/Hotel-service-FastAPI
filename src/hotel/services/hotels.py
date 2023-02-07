@@ -20,7 +20,7 @@ class HotelService:
         hotels = query.all()
         return hotels
 
-    def _get(self, hotel_id: tables.Hotel.id) -> Hotel:
+    def _get(self, hotel_id: int) -> Hotel:
         hotel = self.session.query(
             tables.Hotel
         ).filter_by(id=hotel_id).first()
@@ -37,14 +37,17 @@ class HotelService:
         self.session.commit()
         return hotel
 
-    def update(self, hotel_id: tables.Hotel.id, hotel_data):
+    def update(self, hotel_id: int, hotel_data):
         hotel = self._get(hotel_id)
         for field, value in hotel_data:
             setattr(hotel, field, value)
         self.session.commit()
         return hotel
 
-    def delete(self):
-        pass
+    def delete(self, hotel_id: int):
+        hotel = self._get(hotel_id)
+        self.session.delete(hotel)
+        self.session.commit()
+
 
 

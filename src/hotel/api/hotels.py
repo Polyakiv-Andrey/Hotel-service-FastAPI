@@ -2,6 +2,8 @@ from typing import List, Optional
 
 from fastapi import APIRouter
 from fastapi import Depends
+from fastapi import Response
+from starlette import status
 
 from ..models.hotels import ListHotel, CreateHotel, DetailHotel, UpdateHotel
 from ..services.hotels import HotelService
@@ -42,3 +44,12 @@ def update_hotel_info(
         service: HotelService = Depends(),
 ):
     return service.update(hotel_id=hotel_id, hotel_data=hotel_data)
+
+
+@router.delete("/{hotel_id}")
+def hotel_delete(
+        hotel_id: int,
+        service: HotelService = Depends(),
+):
+    service.delete(hotel_id)
+    return Response(status_code=status.HTTP_204_NO_CONTENT)

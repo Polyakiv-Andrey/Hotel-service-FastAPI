@@ -1,8 +1,7 @@
 from pydantic import BaseModel, Field
 
 
-class Hotel(BaseModel):
-    id: int
+class BaseHotel(BaseModel):
     hotel_name: str
     description: str
     price_for_day: float
@@ -10,3 +9,15 @@ class Hotel(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class ListHotel(BaseHotel):
+    id: int
+
+
+class DetailHotel(BaseHotel):
+    id: int
+
+
+class CreateHotel(BaseHotel):
+    pass

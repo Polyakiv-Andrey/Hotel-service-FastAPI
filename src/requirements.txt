@@ -2,3 +2,4 @@ fastapi
 uvicorn
 pydentic
 python-dotenv
+sqlalchemy

@@ -3,7 +3,7 @@ from fastapi import FastAPI
 app = FastAPI()
 
 
-@app.get("/")
+@app.get("/list_of_hotels")
 async def root():
     return {"message": "Hello World"}
 
